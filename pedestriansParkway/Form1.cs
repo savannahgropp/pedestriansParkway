@@ -20,6 +20,9 @@ namespace pedestriansParkway
         int randValue = 0;
         Random randGen = new Random();
 
+        int carSizeX = 60;
+        int carSizeY = 20;
+
         //timers and score
         int score = 0;
         int displayScore = 0;
@@ -55,6 +58,9 @@ namespace pedestriansParkway
 
         //direction of the frog
         int frogDirection = 0;
+
+        bool canMove = true;
+        int counter = 0;
 
         //create road and obstacles
         List<Rectangle> carList = new List<Rectangle>();
@@ -283,12 +289,12 @@ namespace pedestriansParkway
                 for (int i = 0; i < carList.Count; i++)
                 {
                     int y = carList[i].Y + gameSpeed;
-                    carList[i] = new Rectangle(carList[i].X, y, 25, 20);
+                    carList[i] = new Rectangle(carList[i].X, y, carSizeX, carSizeY);
                 }
                 for (int i = 0; i < carLList.Count; i++)
                 {
                     int y = carLList[i].Y + gameSpeed;
-                    carLList[i] = new Rectangle(carLList[i].X, y, 25, 20);
+                    carLList[i] = new Rectangle(carLList[i].X, y, carSizeX, carSizeY);
                 }
                 for (int i = 0; i < logList.Count; i++)
                 {
@@ -312,9 +318,10 @@ namespace pedestriansParkway
                 }
             }
             //player moves
-            if (upDown == true || wDown == true)
+            if (upDown == true && canMove == true || wDown == true && canMove == true)
             {
                 frogDirection = 1;
+                canMove = false;
 
                 upDown = false;
                 wDown = false;
@@ -355,12 +362,12 @@ namespace pedestriansParkway
                     for (int i = 0; i < carList.Count; i++)
                     {
                         int y = carList[i].Y + playerSpeed;
-                        carList[i] = new Rectangle(carList[i].X, y, 25, 20);
+                        carList[i] = new Rectangle(carList[i].X, y, carSizeX, carSizeY);
                     }
                     for (int i = 0; i < carLList.Count; i++)
                     {
                         int y = carLList[i].Y + playerSpeed;
-                        carLList[i] = new Rectangle(carLList[i].X, y, 25, 20);
+                        carLList[i] = new Rectangle(carLList[i].X, y, carSizeX, carSizeY);
                     }
                     for (int i = 0; i < logList.Count; i++)
                     {
@@ -388,9 +395,10 @@ namespace pedestriansParkway
                     player.Y -= playerSpeed;
                 }
             }
-            if (player.Y < 550 && downDown == true || player.Y < 550 && sDown == true)
+            if (player.Y < 550 && downDown == true && canMove == true || player.Y < 550 && sDown == true && canMove == true)
             {
                 frogDirection = 2;
+                canMove = false;
 
                 displayScore--;
 
@@ -399,18 +407,21 @@ namespace pedestriansParkway
 
                 player.Y += playerSpeed;
             }
-            if (leftDown == true || aDown == true)
+            if (leftDown == true && canMove == true || aDown == true && canMove == true )
             {
                 frogDirection = 3;
+                canMove = false;
 
                 leftDown = false;
                 aDown = false;
 
                 player.X -= playerSpeed;
             }
-            if (rightDown == true || dDown == true)
+            if (rightDown == true && canMove == true || dDown == true && canMove == true)
+                                                                                                                    
             {
                 frogDirection = 4;
+                canMove = false;
 
                 rightDown = false;
                 dDown = false;
@@ -419,34 +430,34 @@ namespace pedestriansParkway
             }
             //create cars (moving right)
             randValue = randGen.Next(0, 101);
-            if (randValue <= 10)
+            if (randValue <= 20)
             {
                 randValue = randGen.Next(0, 400);
                 if (randValue <= 100)
                 {
                     //car on road 2
-                    Rectangle car2 = new Rectangle(0, road2.Y + 35, 25, 20);
+                    Rectangle car2 = new Rectangle(0, road2.Y + 35, carSizeX, carSizeY);
                     carList.Add(car2);
                 }
                 randValue = randGen.Next(0, 400);
                 if (randValue <= 100)
                 {
                     //car on road 3
-                    Rectangle car3 = new Rectangle(0, road3.Y + 65, 25, 20);
+                    Rectangle car3 = new Rectangle(0, road3.Y + 65, carSizeX, carSizeY);
                     carList.Add(car3);
                 }
                 randValue = randGen.Next(0, 400);
                 if (randValue <= 100)
                 {
                     //car on road 4
-                    Rectangle car4 = new Rectangle(0, road4.Y + 35, 25, 20);
+                    Rectangle car4 = new Rectangle(0, road4.Y + 35, carSizeX, carSizeY);
                     carList.Add(car4);
                 }
                 randValue = randGen.Next(0, 400);
                 if (randValue <= 100)
                 {
                     //car on road 5
-                    Rectangle car5 = new Rectangle(0, road5.Y + 65, 25, 20);
+                    Rectangle car5 = new Rectangle(0, road5.Y + 65, carSizeX, carSizeY);
                     carList.Add(car5);
                 }
             }
@@ -458,37 +469,65 @@ namespace pedestriansParkway
                 if (randValue <= 100)
                 {
                     //car on road 1
-                    Rectangle car1 = new Rectangle(this.Width, road1.Y + 5, 25, 20);
+                    Rectangle car1 = new Rectangle(this.Width, road1.Y + 5, carSizeX, carSizeY);
                     carLList.Add(car1);
                 }
                 randValue = randGen.Next(0, 400);
                 if (randValue <= 100)
                 {
                     //car on road 2
-                    Rectangle car2 = new Rectangle(this.Width, road2.Y + 5, 25, 20);
+                    Rectangle car2 = new Rectangle(this.Width, road2.Y + 5, carSizeX, carSizeY);
                     carLList.Add(car2);
                 }
                 randValue = randGen.Next(0, 400);
                 if (randValue <= 100)
                 {
                     //car on road 3
-                    Rectangle car3 = new Rectangle(this.Width, road3.Y + 30, 25, 20);
+                    Rectangle car3 = new Rectangle(this.Width, road3.Y + 30, carSizeX, carSizeY);
                     carLList.Add(car3);
                 }
                 randValue = randGen.Next(0, 400);
                 if (randValue <= 100)
                 {
                     //car on road 4
-                    Rectangle car4 = new Rectangle(this.Width, road4.Y + 5, 25, 20);
+                    Rectangle car4 = new Rectangle(this.Width, road4.Y + 5, carSizeX, carSizeY);
                     carLList.Add(car4);
                 }
                 randValue = randGen.Next(0, 400);
                 if (randValue <= 100)
                 {
                     //car on road 5
-                    Rectangle car5 = new Rectangle(this.Width, road5.Y + 30, 25, 20);
+                    Rectangle car5 = new Rectangle(this.Width, road5.Y + 30, carSizeX, carSizeY);
                     carLList.Add(car5);
                 }
+            }
+            //remove cars if they are overlapping
+            try
+            {
+                for (int i = 0; i < carList.Count; i++)
+                {
+                    for (int c = 0; c < carList.Count; c++)
+                    {
+                        if (carList[i].IntersectsWith(carList[c]) && c != i)
+                        {
+                            carList.RemoveAt(i);
+                        }
+                    }
+                }
+                for (int i = 0; i < carLList.Count; i++)
+                {
+                    for (int c = 0; c < carLList.Count; c++)
+                    {
+                        if (carLList[i].IntersectsWith(carLList[c]) && c != i)
+                        {
+                            carLList.RemoveAt(i);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
             }
             //create logs (moving right)
             randValue = randGen.Next(0, 101);
@@ -540,16 +579,46 @@ namespace pedestriansParkway
                     invisLList.Add(invis2);
                 }
             }
+            //remove logs if they are overlapping
+            try
+            {
+                for (int i = 0; i < logList.Count; i++)
+                {
+                    for (int c = 0; c < logList.Count; c++)
+                    {
+                        if (logList[i].IntersectsWith(logList[c]) && c != i)
+                        {
+                            logList.RemoveAt(i);
+                            invisList.RemoveAt(i);
+                        }
+                    }
+                }
+                for (int i = 0; i < logLList.Count; i++)
+                {
+                    for (int c = 0; c < logLList.Count; c++)
+                    {
+                        if (logLList[i].IntersectsWith(logLList[c]) && c != i)
+                        {
+                            logLList.RemoveAt(i);
+                            invisLList.RemoveAt(i);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
             //make cars move
             for (int i = 0; i < carList.Count; i++)
             {
                 int x = carList[i].X + carXSpeed;
-                carList[i] = new Rectangle(x, carList[i].Y, 25, 20);
+                carList[i] = new Rectangle(x, carList[i].Y, carSizeX, carSizeY);
             }
             for (int i = 0; i < carLList.Count; i++)
             {
                 int x = carLList[i].X - carXSpeed;
-                carLList[i] = new Rectangle(x, carLList[i].Y, 25, 20);
+                carLList[i] = new Rectangle(x, carLList[i].Y, carSizeX, carSizeY);
             }
             //make logs move
             for (int i = 0; i < logList.Count; i++)
@@ -702,6 +771,12 @@ namespace pedestriansParkway
                 invisList.Clear();
                 invisLList.Clear();
             }
+            counter++;
+            if (counter % 20 == 0)
+            {
+                counter = 0;
+                canMove = true;
+            }
             Refresh();
         }
 
@@ -733,11 +808,11 @@ namespace pedestriansParkway
 
                 for (int i = 0; i < carList.Count; i++)
                 {
-                    e.Graphics.DrawImage(crossyCar2, carList[i].X - 20, carList[i].Y - 20);
+                    e.Graphics.DrawImage(crossyCar2, carList[i].X, carList[i].Y - 20);
                 }
                 for (int i = 0; i < carLList.Count; i++)
                 {
-                    e.Graphics.DrawImage(crossyCar, carLList[i].X - 20, carLList[i].Y - 20);
+                    e.Graphics.DrawImage(crossyCar, carLList[i].X, carLList[i].Y - 20);
                 }
                 for (int i = 0; i < logList.Count; i++)
                 { 
