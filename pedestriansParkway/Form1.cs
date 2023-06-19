@@ -112,6 +112,7 @@ namespace pedestriansParkway
         Image frogDown = new Bitmap(Properties.Resources.frogDOWN, 40, 40);
         Image log = new Bitmap(Properties.Resources.logPNG, 60, 20);
 
+        //sounds
         SoundPlayer frogSound = new SoundPlayer(Properties.Resources.jumpSoundWAV);
         SoundPlayer deathSound = new SoundPlayer(Properties.Resources.deathSound);
 
@@ -259,7 +260,8 @@ namespace pedestriansParkway
                     state = "over";
                 }
             }
-            //map moves
+
+            //map moves automatically
             if (score >= 7)
             {
                 player.Y += gameSpeed;
@@ -317,6 +319,7 @@ namespace pedestriansParkway
                     invisLList[i] = new Rectangle(invisLList[i].X, y, 80, 40);
                 }
             }
+
             //player moves
             if (upDown == true && canMove == true || wDown == true && canMove == true)
             {
@@ -328,6 +331,7 @@ namespace pedestriansParkway
 
                 frogSound.Play();
 
+                // adds points to score
                 score++;
                 displayScore++;
                 if (score >= displayScore)
@@ -337,6 +341,8 @@ namespace pedestriansParkway
 
                 if (player.Y <= 300)
                 {
+                    // moves everything on screen down
+                    // player looks like its moving forward
                     road1.Y += playerSpeed;
 
                     road2.Y += playerSpeed;
@@ -397,6 +403,7 @@ namespace pedestriansParkway
             }
             if (player.Y < 550 && downDown == true && canMove == true || player.Y < 550 && sDown == true && canMove == true)
             {
+                // player moves down
                 frogDirection = 2;
                 canMove = false;
 
@@ -409,6 +416,7 @@ namespace pedestriansParkway
             }
             if (leftDown == true && canMove == true || aDown == true && canMove == true )
             {
+                // player moves left
                 frogDirection = 3;
                 canMove = false;
 
@@ -417,9 +425,9 @@ namespace pedestriansParkway
 
                 player.X -= playerSpeed;
             }
-            if (rightDown == true && canMove == true || dDown == true && canMove == true)
-                                                                                                                    
+            if (rightDown == true && canMove == true || dDown == true && canMove == true)                                                                                         
             {
+                // player moves right
                 frogDirection = 4;
                 canMove = false;
 
@@ -428,6 +436,7 @@ namespace pedestriansParkway
 
                 player.X += playerSpeed;
             }
+
             //create cars (moving right)
             randValue = randGen.Next(0, 101);
             if (randValue <= 20)
@@ -461,6 +470,7 @@ namespace pedestriansParkway
                     carList.Add(car5);
                 }
             }
+
             //create cars (moving left)
             randValue = randGen.Next(0, 101);
             if (randValue <= 10)
@@ -501,6 +511,7 @@ namespace pedestriansParkway
                     carLList.Add(car5);
                 }
             }
+
             //remove cars if they are overlapping
             try
             {
@@ -529,6 +540,7 @@ namespace pedestriansParkway
             {
 
             }
+
             //create logs (moving right)
             randValue = randGen.Next(0, 101);
             if (randValue <= 10)
@@ -554,6 +566,7 @@ namespace pedestriansParkway
                     invisList.Add(invis2);
                 }
             }
+
             //create logs (moving left)
             randValue = randGen.Next(0, 101);
             if (randValue <= 10)
@@ -579,6 +592,7 @@ namespace pedestriansParkway
                     invisLList.Add(invis2);
                 }
             }
+
             //remove logs if they are overlapping
             try
             {
@@ -609,6 +623,7 @@ namespace pedestriansParkway
             {
 
             }
+
             //make cars move
             for (int i = 0; i < carList.Count; i++)
             {
@@ -620,6 +635,7 @@ namespace pedestriansParkway
                 int x = carLList[i].X - carXSpeed;
                 carLList[i] = new Rectangle(x, carLList[i].Y, carSizeX, carSizeY);
             }
+
             //make logs move
             for (int i = 0; i < logList.Count; i++)
             {
@@ -631,6 +647,7 @@ namespace pedestriansParkway
                 int x = logLList[i].X + logXSpeed;
                 logLList[i] = new Rectangle(x, logLList[i].Y, 60, 20);
             }
+
             //collisions
             for (int i = 0; i < carList.Count; i++)
             {
@@ -646,6 +663,7 @@ namespace pedestriansParkway
                     state = "over";
                 }
             }
+
             //make invisible rectangles stay where they need to around the logs
             for (int i = 0; i < invisList.Count; i++)
             {
@@ -681,6 +699,7 @@ namespace pedestriansParkway
                     state = "over";
                 }
             }
+
             //make cars dissapear at the edge of the screen
             for (int i = 0; i < carList.Count; i++)
             {
@@ -696,6 +715,7 @@ namespace pedestriansParkway
                     carLList.RemoveAt(i);
                 }
             }
+
             //make logs dissapear at the edge of the screen
             for (int i = 0; i < logList.Count; i++)
             {
@@ -713,6 +733,7 @@ namespace pedestriansParkway
                     invisLList.RemoveAt(i);
                 }
             }
+
             //out of bounds
             if (player.X <= 0 || player.X >= this.Width)
             {
@@ -722,6 +743,7 @@ namespace pedestriansParkway
             {
                 state = "over";
             }
+
             //make roads reset
             if (road1.Y >= 600)
             {
@@ -750,6 +772,7 @@ namespace pedestriansParkway
                 line52.Y -= 1020;
                 line53.Y -= 1020;
             }
+
             //make rivers reset
             if (river1.Y >= 600)
             {
@@ -771,12 +794,15 @@ namespace pedestriansParkway
                 invisList.Clear();
                 invisLList.Clear();
             }
+
+            // so you can't glitch the player down the map
             counter++;
             if (counter % 10 == 0)
             {
                 counter = 0;
                 canMove = true;
             }
+
             Refresh();
         }
 
@@ -784,6 +810,7 @@ namespace pedestriansParkway
         {
             if (state == "timed" || state == "endless")
             {
+                // paint background
                 e.Graphics.FillRectangle(grayBrush, road1);
 
                 e.Graphics.FillRectangle(grayBrush, road2);
@@ -806,6 +833,7 @@ namespace pedestriansParkway
                 e.Graphics.FillRectangle(yellowBrush, line52);
                 e.Graphics.FillRectangle(whiteBrush, line53);
 
+                // paint cars
                 for (int i = 0; i < carList.Count; i++)
                 {
                     e.Graphics.DrawImage(crossyCar2, carList[i].X, carList[i].Y - 20);
@@ -814,6 +842,8 @@ namespace pedestriansParkway
                 {
                     e.Graphics.DrawImage(crossyCar, carLList[i].X, carLList[i].Y - 20);
                 }
+
+                // paint logs
                 for (int i = 0; i < logList.Count; i++)
                 { 
                     e.Graphics.DrawImage(log, logList[i].X, logList[i].Y);
@@ -823,6 +853,7 @@ namespace pedestriansParkway
                     e.Graphics.DrawImage(log, logLList[i].X, logLList[i].Y);
                 }
 
+                //turn the frog (change its image) when the direction turns
                 if (frogDirection == 1 || frogDirection == 0)
                 {
                     e.Graphics.DrawImage(frog, player.X - 10, player.Y - 10);
@@ -848,6 +879,7 @@ namespace pedestriansParkway
         }
         public void clearScreen()
         {
+            //hide titles and buttons
             timedButton.Enabled = false;
             timedButton.Visible = false;
             endlessButton.Enabled = false;
@@ -862,11 +894,14 @@ namespace pedestriansParkway
         }
         public void endScreen()
         {
+            //stop the game
             gameTimer.Stop();
             deathSound.Play();
 
+            //background colours
             BackColor = Color.DimGray;
-
+            
+            //show titles and buttons
             timedButton.Enabled = true;
             timedButton.Visible = true;
             endlessButton.Enabled = true;
