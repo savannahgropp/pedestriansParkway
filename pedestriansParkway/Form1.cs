@@ -13,7 +13,7 @@ using static System.Windows.Forms.LinkLabel;
 
 /// Savannah Gropp
 /// June 19/2023
-/// A recreation of crossy road with a twist
+/// A recreation of crossy road with a twist (just kidding theres no twist its just 2d)
 
 namespace pedestriansParkway
 {
