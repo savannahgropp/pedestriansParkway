@@ -772,7 +772,7 @@ namespace pedestriansParkway
                 invisLList.Clear();
             }
             counter++;
-            if (counter % 20 == 0)
+            if (counter % 10 == 0)
             {
                 counter = 0;
                 canMove = true;
