@@ -11,6 +11,10 @@ using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.LinkLabel;
 
+/// Savannah Gropp
+/// June 19/2023
+/// A recreation of crossy road with a twist
+
 namespace pedestriansParkway
 {
     public partial class pedestriansParkway : Form
@@ -593,7 +597,7 @@ namespace pedestriansParkway
                 }
             }
 
-            //remove logs if they are overlapping
+            // remove logs if they are overlapping
             try
             {
                 for (int i = 0; i < logList.Count; i++)
