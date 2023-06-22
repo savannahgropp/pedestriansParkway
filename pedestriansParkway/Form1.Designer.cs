@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(pedestriansParkway));
             this.titleLabel = new System.Windows.Forms.Label();
             this.subtitleLabel = new System.Windows.Forms.Label();
             this.timedButton = new System.Windows.Forms.Button();
@@ -147,6 +148,7 @@
             this.Controls.Add(this.titleLabel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "pedestriansParkway";
             this.Text = "Pedestrian\'s Parkway";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.pedestriansParkway_Paint);
